@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 GDGoC SKKU Interactive Roadmap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #F3F4F6; /* Gray 100 */
+            color: #1F2937; /* Gray 800 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .glass-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #6366F1, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #E5E7EB;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+        .timeline-marker {
+            z-index: 10;
+        }
+        /* Hide scrollbar for clean horizontal scroll areas */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-black tracking-tighter">
+                        GDGoC <span class="text-indigo-600">SKKU</span>
+                    </span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#teams" class="text-gray-600 hover:text-indigo-600 font-medium">Teams</a>
+                    <a href="#dashboard" class="text-gray-600 hover:text-indigo-600 font-medium">Analytics</a>
+                    <a href="#roadmap" class="text-gray-600 hover:text-indigo-600 font-medium">Roadmap & Lectures</a>
+                    <a href="#ai-proposal" class="text-gray-600 hover:text-indigo-600 font-medium">AI Proposal</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+            <h2 class="text-base font-bold text-indigo-600 tracking-wide uppercase mb-2">2026 Integrated Strategy</h2>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 tracking-tight mb-4">
+                Zero to <span class="gradient-text">Hero Engineer</span>
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-500">
+                Foundation부터 Enterprise Orchestration까지.<br>
+                팀별 전문성과 킹고인 강연이 결합된 1년의 성장 로드맵.
+            </p>
+        </div>
+    </header>
+
+    <!-- Team Structure Section -->
+    <section id="teams" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-gray-900">Tech Core Organization</h2>
+                <p class="mt-2 text-gray-600">1/15 회의 확정 조직도</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Cloud -->
+                <div class="glass-card rounded-xl p-6 border-t-4 border-indigo-500">
+                    <div class="text-indigo-500 text-3xl mb-4"><i class="fas fa-cloud"></i></div>
+                    <h3 class="text-lg font-bold text-gray-900">Cloud Infra</h3>
+                    <p class="text-sm text-gray-500 mb-2">Lead: 이건희</p>
+                    <p class="text-gray-600 text-sm">GCP 전반 및 Terraform/K8s 인프라 자동화 집중 연구</p>
+                </div>
+                <!-- App -->
+                <div class="glass-card rounded-xl p-6 border-t-4 border-pink-500">
+                    <div class="text-pink-500 text-3xl mb-4"><i class="fas fa-mobile-alt"></i></div>
+                    <h3 class="text-lg font-bold text-gray-900">End-User App</h3>
+                    <p class="text-sm text-gray-500 mb-2">Lead: 김학재</p>
+                    <p class="text-gray-600 text-sm">Flutter & Firebase 기반 모바일/웹 서비스 구축 및 배포</p>
+                </div>
+                <!-- AI -->
+                <div class="glass-card rounded-xl p-6 border-t-4 border-emerald-500">
+                    <div class="text-emerald-500 text-3xl mb-4"><i class="fas fa-brain"></i></div>
+                    <h3 class="text-lg font-bold text-gray-900">AI Engineering</h3>
+                    <p class="text-sm text-gray-500 mb-2">Lead: 한솔 (TBD)</p>
+                    <p class="text-gray-600 text-sm">Gemini API 통합 및 AI 솔루션 아키텍처 연구</p>
+                </div>
+                <!-- Admin -->
+                <div class="glass-card rounded-xl p-6 border-t-4 border-amber-500">
+                    <div class="text-amber-500 text-3xl mb-4"><i class="fas fa-users-cog"></i></div>
+                    <h3 class="text-lg font-bold text-gray-900">Administration</h3>
+                    <p class="text-sm text-gray-500 mb-2">Core: 최유진, 아시예, 김보민</p>
+                    <p class="text-gray-600 text-sm">산학협력, 공개특강 기획 및 대외협력 총괄</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-gray-900">Roadmap Analytics</h2>
+                <p class="mt-2 text-gray-600">데이터로 보는 2026년 커리큘럼 분석</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Curriculum Balance -->
+                <div class="glass-card bg-white rounded-xl shadow-lg p-6 flex flex-col">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 pl-2 border-l-4 border-indigo-500">Curriculum Balance</h3>
+                    <div class="chart-container flex-grow">
+                        <canvas id="balanceChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Monthly Pulse -->
+                <div class="glass-card bg-white rounded-xl shadow-lg p-6 flex flex-col">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 pl-2 border-l-4 border-pink-500">Monthly Activity Pulse</h3>
+                    <div class="chart-container flex-grow">
+                        <canvas id="pulseChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Learning Curve -->
+                <div class="glass-card bg-white rounded-xl shadow-lg p-6 flex flex-col lg:col-span-2">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 pl-2 border-l-4 border-emerald-500">Technical Depth Progression</h3>
+                    <div class="chart-container flex-grow">
+                        <canvas id="curveChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Roadmap Timeline Section -->
+    <section id="roadmap" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-extrabold text-gray-900">2026 Integrated Roadmap & Lecture Plan</h2>
+                <p class="mt-2 text-gray-600">Foundation(공통) + Team Study + Kingoin Lecture의 유기적 결합</p>
+            </div>
+
+            <!-- Q1 -->
+            <div class="relative mb-20">
+                <div class="absolute left-4 md:left-1/2 w-0.5 h-full bg-gray-300 transform -translate-x-1/2"></div>
+                
+                <!-- Feb -->
+                <div class="relative z-10 mb-12 flex flex-col md:flex-row items-center">
+                    <div class="order-1 md:w-1/2 md:pr-10 text-right">
+                        <h3 class="text-2xl font-bold text-gray-800">2월: Build-up</h3>
+                        <p class="text-indigo-600 font-semibold mb-2">Recruiting & Pre-Semester</p>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 text-sm text-gray-600 inline-block text-left">
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>2월 초: 모집 공고 (에타 등)</li>
+                                <li>2월 22일: 신입생 OT 발표</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="order-2 flex-shrink-0 w-8 h-8 rounded-full bg-indigo-500 border-4 border-white shadow-md my-4 md:my-0"></div>
+                    <div class="order-3 md:w-1/2 md:pl-10">
+                        <!-- Lecture Card -->
+                        <div class="bg-gradient-to-r from-indigo-50 to-purple-50 p-5 rounded-xl border border-indigo-100 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-indigo-600 text-white text-xs px-2 py-1 rounded uppercase font-bold mr-2">Kingoin Lecture</span>
+                                <h4 class="font-bold text-gray-900">2026 주니어 엔지니어 생존 로드맵</h4>
+                            </div>
+                            <p class="text-sm text-gray-700"><strong>Goal:</strong> 신입 모집 전, 로드맵 기술(FastAPI, GCP 등)의 시장 가치를 공유하여 동기 부여.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mar -->
+                <div class="relative z-10 mb-12 flex flex-col md:flex-row items-center">
+                    <div class="order-1 md:w-1/2 md:pr-10 text-right">
+                        <!-- Lecture Card (Left for alternating layout on desktop) -->
+                        <div class="bg-gradient-to-r from-emerald-50 to-teal-50 p-5 rounded-xl border border-emerald-100 shadow-sm hover:shadow-md transition-shadow text-left">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-emerald-600 text-white text-xs px-2 py-1 rounded uppercase font-bold mr-2">Kingoin Lecture</span>
+                                <h4 class="font-bold text-gray-900">AI-Native 제품 개발 실무</h4>
+                            </div>
+                            <p class="text-sm text-gray-700"><strong>Goal:</strong> Gemini API + FastAPI를 결합한 실무 서비스 구축 사례 확인.</p>
+                        </div>
+                    </div>
+                    <div class="order-2 flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500 border-4 border-white shadow-md my-4 md:my-0"></div>
+                    <div class="order-3 md:w-1/2 md:pl-10">
+                         <h3 class="text-2xl font-bold text-gray-800">3월: Foundation Stack</h3>
+                         <p class="text-emerald-600 font-semibold mb-2">전 부원 공통 기초 역량</p>
+                         <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 space-y-3">
+                             <div>
+                                 <span class="text-xs font-bold text-gray-400 uppercase">Common</span>
+                                 <div class="flex flex-wrap gap-2 mt-1">
+                                     <span class="px-2 py-1 bg-gray-100 rounded text-xs text-gray-700 font-medium">uv (Python Pkg)</span>
+                                     <span class="px-2 py-1 bg-gray-100 rounded text-xs text-gray-700 font-medium">Pydantic</span>
+                                     <span class="px-2 py-1 bg-gray-100 rounded text-xs text-gray-700 font-medium">FastAPI</span>
+                                     <span class="px-2 py-1 bg-gray-100 rounded text-xs text-gray-700 font-medium">SQLModel</span>
+                                     <span class="px-2 py-1 bg-gray-100 rounded text-xs text-gray-700 font-medium">Gemini API</span>
+                                 </div>
+                             </div>
+                             <div class="border-t border-gray-100 pt-2">
+                                 <span class="text-xs font-bold text-gray-400 uppercase">Team Specific</span>
+                                 <ul class="text-sm text-gray-600 mt-1 space-y-1">
+                                     <li>☁️ Core Infrastructure (IAM, Billing)</li>
+                                     <li>🛠️ Flutter Basics & Setup</li>
+                                     <li>🤖 Prompt Engineering</li>
+                                 </ul>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+
+                <!-- Apr -->
+                <div class="relative z-10 mb-12 flex flex-col md:flex-row items-center">
+                    <div class="order-1 md:w-1/2 md:pr-10 text-right">
+                        <h3 class="text-2xl font-bold text-gray-800">4월: Deep Dive</h3>
+                        <p class="text-pink-600 font-semibold mb-2">Backend & Data Architecture</p>
+                        <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 space-y-3 inline-block text-left w-full">
+                            <div>
+                                <span class="text-xs font-bold text-gray-400 uppercase">Team Specific</span>
+                                <ul class="text-sm text-gray-600 mt-1 space-y-1">
+                                    <li>☁️ VPC Networking & Load Balancing</li>
+                                    <li>🛠️ Flutter State Management (TBA)</li>
+                                    <li>🤖 (TBD)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-2 flex-shrink-0 w-8 h-8 rounded-full bg-pink-500 border-4 border-white shadow-md my-4 md:my-0"></div>
+                    <div class="order-3 md:w-1/2 md:pl-10">
+                        <!-- Lecture Card -->
+                        <div class="bg-gradient-to-r from-pink-50 to-rose-50 p-5 rounded-xl border border-pink-100 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-pink-600 text-white text-xs px-2 py-1 rounded uppercase font-bold mr-2">Kingoin Lecture</span>
+                                <h4 class="font-bold text-gray-900">백엔드 아키텍처 & 데이터 무결성</h4>
+                            </div>
+                            <p class="text-sm text-gray-700"><strong>Goal:</strong> SQLModel 학습 내용을 바탕으로 대규모 트래픽에서의 데이터 설계 전략 이해.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- May -->
+                <div class="relative z-10 mb-12 flex flex-col md:flex-row items-center">
+                    <div class="order-1 md:w-1/2 md:pr-10 text-right">
+                        <!-- Lecture Card -->
+                        <div class="bg-gradient-to-r from-amber-50 to-orange-50 p-5 rounded-xl border border-amber-100 shadow-sm hover:shadow-md transition-shadow text-left">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-amber-600 text-white text-xs px-2 py-1 rounded uppercase font-bold mr-2">Kingoin Lecture</span>
+                                <h4 class="font-bold text-gray-900">Cloud Native 인프라 & 모바일 배포</h4>
+                            </div>
+                            <p class="text-sm text-gray-700"><strong>Goal:</strong> 인프라 구축과 모바일 앱 배포가 결합되는 실무 프로세스 이해.</p>
+                        </div>
+                    </div>
+                    <div class="order-2 flex-shrink-0 w-8 h-8 rounded-full bg-amber-500 border-4 border-white shadow-md my-4 md:my-0"></div>
+                    <div class="order-3 md:w-1/2 md:pl-10">
+                        <h3 class="text-2xl font-bold text-gray-800">5월: Infra & Sync</h3>
+                        <p class="text-amber-600 font-semibold mb-2">Compute & Firebase Integration</p>
+                         <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 space-y-3">
+                             <div class="text-xs font-bold bg-gray-800 text-white px-2 py-1 rounded inline-block mb-1">Event: AWS Hands-on Labs</div>
+                             <div>
+                                 <span class="text-xs font-bold text-gray-400 uppercase">Team Specific</span>
+                                 <ul class="text-sm text-gray-600 mt-1 space-y-1">
+                                     <li>☁️ Compute Engine (VM), Cloud Storage/SQL</li>
+                                     <li>🛠️ Flutter + Firebase Auth/Firestore</li>
+                                     <li>🤖 (TBD)</li>
+                                 </ul>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+
+                <!-- Jun -->
+                <div class="relative z-10 mb-12 flex flex-col md:flex-row items-center">
+                    <div class="order-1 md:w-1/2 md:pr-10 text-right">
+                         <h3 class="text-2xl font-bold text-gray-800">6월: Container & Hackathon</h3>
+                         <p class="text-blue-600 font-semibold mb-2">Docker & Serverless</p>
+                         <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 space-y-3 inline-block text-left w-full">
+                            <div class="text-xs font-bold bg-blue-600 text-white px-2 py-1 rounded inline-block mb-1">Event: Summer Code Snack</div>
+                             <div>
+                                 <span class="text-xs font-bold text-gray-400 uppercase">Team Specific</span>
+                                 <ul class="text-sm text-gray-600 mt-1 space-y-1">
+                                     <li>☁️ Docker & Cloud Run</li>
+                                     <li>🛠️ Self-hostable App Development</li>
+                                     <li>🤖 (TBD)</li>
+                                 </ul>
+                             </div>
+                         </div>
+                    </div>
+                    <div class="order-2 flex-shrink-0 w-8 h-8 rounded-full bg-blue-500 border-4 border-white shadow-md my-4 md:my-0"></div>
+                    <div class="order-3 md:w-1/2 md:pl-10">
+                        <!-- Lecture Card -->
+                        <div class="bg-gradient-to-r from-blue-50 to-cyan-50 p-5 rounded-xl border border-blue-100 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-blue-600 text-white text-xs px-2 py-1 rounded uppercase font-bold mr-2">Kingoin Lecture</span>
+                                <h4 class="font-bold text-gray-900">서버리스 아키텍처 & CI/CD</h4>
+                            </div>
+                            <p class="text-sm text-gray-700"><strong>Goal:</strong> 컨테이너 기반 개발 생산성 향상 및 자동화 배포 전략 학습.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3 & Q4 Summary Block (Simplified for vertical space) -->
+                <div class="relative z-10 mb-12 flex flex-col md:flex-row items-start">
+                    <div class="md:w-full bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">하반기 (Q3~Q4) 주요 흐름</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-bold text-indigo-600 mb-2">Q3: 확장 & 인증 (Jul-Sep)</h4>
+                                <ul class="list-disc pl-5 text-sm text-gray-600 space-y-2">
+                                    <li><strong>Event:</strong> S-Global 해외탐방, Autumn Code Snack</li>
+                                    <li><strong>Study:</strong> Google Cloud Certificate 모의고사</li>
+                                    <li><strong>Common:</strong> Figma (Material 3), Firebase Hosting</li>
+                                    <li><strong>Lecture:</strong> 글로벌 트렌드, 디자인 시스템 협업</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-purple-600 mb-2">Q4: 엔터프라이즈 (Oct-Dec)</h4>
+                                <ul class="list-disc pl-5 text-sm text-gray-600 space-y-2">
+                                    <li><strong>Event:</strong> Winter Hackathon (Final)</li>
+                                    <li><strong>Cloud:</strong> Kubernetes (GKE), Terraform (IaC)</li>
+                                    <li><strong>Common:</strong> Firebase Cloud Functions (Automation)</li>
+                                    <li><strong>Lecture:</strong> 인프라 오케스트레이션, 프로덕트 고도화</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Proposal Section -->
+    <section id="ai-proposal" class="py-16 bg-white border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-gray-900">AI Engineering Curriculum Proposal (Draft)</h2>
+                    <p class="text-gray-500">한솔 (Core 예정) 논의용 제안서</p>
+                </div>
+                <span class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1 rounded-full">INTERNAL USE</span>
+            </div>
+
+            <div class="bg-slate-50 rounded-xl p-8 border border-slate-200">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Philosophy: "Practical AI & Integration"</h3>
+                <p class="text-gray-600 mb-6">단순 모델 학습을 넘어, Gemini를 기존 서비스(FastAPI/DB)에 통합하는 실무 능력 배양.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-white p-4 rounded shadow-sm">
+                        <div class="text-sm font-bold text-emerald-600 mb-1">Q1. Basics</div>
+                        <ul class="text-xs text-gray-600 space-y-1">
+                            <li>System Prompt Design</li>
+                            <li>Gemini API (Python SDK)</li>
+                            <li>JSON Mode & Pydantic</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-4 rounded shadow-sm">
+                        <div class="text-sm font-bold text-emerald-600 mb-1">Q2. RAG & Multimodal</div>
+                        <ul class="text-xs text-gray-600 space-y-1">
+                            <li>Multimodal Prompting</li>
+                            <li>Vector DB Basics</li>
+                            <li>RAG Architecture</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-4 rounded shadow-sm">
+                        <div class="text-sm font-bold text-emerald-600 mb-1">Q3. Agents</div>
+                        <ul class="text-xs text-gray-600 space-y-1">
+                            <li>Gemini Function Calling</li>
+                            <li>Agentic Workflow</li>
+                            <li>Data Engineer Cert Prep</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-4 rounded shadow-sm">
+                        <div class="text-sm font-bold text-emerald-600 mb-1">Q4. MLOps</div>
+                        <ul class="text-xs text-gray-600 space-y-1">
+                            <li>Vertex AI Deployment</li>
+                            <li>Monitoring & Eval</li>
+                            <li>Cloud Functions Automation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-2xl font-bold mb-4">GDGoC SKKU</h2>
+            <p class="text-gray-400 text-sm mb-8">
+                Cloud • Application • AI • Administration<br>
+                Based on 1/15 Exec Meeting & 2026 Roadmap Strategy
+            </p>
+            <p class="text-xs text-gray-600">&copy; 2026 GDGoC Sungkyunkwan University. Internal Confidential.</p>
+        </div>
+    </footer>
+
+    <!-- Chart Logic -->
+    <script>
+        // --- Shared Config ---
+        Chart.defaults.font.family = "'Noto Sans KR', sans-serif";
+        Chart.defaults.color = '#4B5563';
+
+        const tooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    return Array.isArray(label) ? label.join(' ') : label;
+                }
+            }
+        };
+
+        function splitLabel(label) {
+            if (typeof label !== 'string' || label.length <= 16) return label;
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + ' ' + words[i]).length <= 16) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // --- Chart 1: Curriculum Balance (Doughnut) ---
+        new Chart(document.getElementById('balanceChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Cloud Infra', 'App Dev', 'AI Eng', 'Admin/Foundation'].map(splitLabel),
+                datasets: [{
+                    data: [30, 30, 20, 20],
+                    backgroundColor: ['#6366F1', '#EC4899', '#10B981', '#F59E0B'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'right' }, tooltip: tooltipConfig },
+                cutout: '70%'
+            }
+        });
+
+        // --- Chart 2: Monthly Pulse (Bar) ---
+        new Chart(document.getElementById('pulseChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Intensity',
+                    data: [3, 8, 4, 7, 4, 3, 3, 6, 2, 8, 3], // Estimated
+                    backgroundColor: (ctx) => ctx.raw >= 7 ? '#EC4899' : '#6366F1',
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { x: { grid: { display: false } }, y: { beginAtZero: true } },
+                plugins: { legend: { display: false }, tooltip: tooltipConfig }
+            }
+        });
+
+        // --- Chart 3: Tech Depth (Line) ---
+        new Chart(document.getElementById('curveChart'), {
+            type: 'line',
+            data: {
+                labels: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Complexity Level',
+                    data: [10, 30, 50, 65, 70, 75, 75, 95, 100],
+                    borderColor: '#10B981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { x: { grid: { display: false } }, y: { beginAtZero: true, max: 100 } },
+                plugins: { legend: { display: false }, tooltip: tooltipConfig }
+            }
+        });
+    </script>
+</body>
+</html>
