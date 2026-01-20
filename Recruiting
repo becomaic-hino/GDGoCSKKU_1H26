@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDGoC SKKU 2026 | Zero to Hero Engineer</title>
+    
+    <!-- External Assets: Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <style>
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        :root {
+            --skku-green: #213A28;
+            --google-blue: #4285F4;
+            --google-red: #EA4335;
+            --google-yellow: #FBBC05;
+            --google-green: #34A853;
+            --bg-light: #F8F9FA;
+            --text-dark: #1F1F1F;
+            --text-gray: #666;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background: #fff;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: var(--skku-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--skku-green);
+            color: white;
+            padding: 100px 5%;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            margin-bottom: 1rem;
+            font-weight: 900;
+            line-height: 1.2;
+            word-break: keep-all;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            word-break: keep-all;
+        }
+
+        /* Button Group */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            background-color: var(--google-blue);
+            color: white !important;
+            padding: 1.1rem 2.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            display: inline-block;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .secondary-button {
+            background-color: transparent;
+            color: white !important;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .secondary-button:hover {
+            border-color: white;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Roadmap Section */
+        .section-container {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--skku-green);
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            font-weight: 900;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background: var(--google-yellow);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            border-top: 8px solid var(--skku-green);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .q-badge {
+            background: #E8F5E9;
+            color: var(--skku-green);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-weight: 900;
+            font-size: 0.85rem;
+            margin-bottom: 18px;
+            display: inline-block;
+            width: fit-content;
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+            color: var(--skku-green);
+            font-weight: 800;
+        }
+
+        .card .card-desc {
+            font-size: 1rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+
+        .card ul {
+            list-style: none;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 20px;
+        }
+
+        .card li {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-bottom: 12px;
+            padding-left: 28px;
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .card li::before {
+            content: 'check_circle';
+            font-family: 'Material Icons';
+            position: absolute;
+            left: 0;
+            top: 1px;
+            color: var(--google-green);
+            font-size: 18px;
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            background: white;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #eee;
+            transition: 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: var(--skku-green);
+        }
+
+        .faq-question {
+            padding: 22px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            user-select: none;
+            font-size: 1.1rem;
+        }
+
+        .faq-answer {
+            padding: 0 22px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s;
+            background: #fdfdfd;
+            color: #555;
+            word-break: keep-all;
+            border-top: 0 solid #eee;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 400px;
+            padding: 22px;
+            border-top-width: 1px;
+        }
+
+        .faq-question::after {
+            content: 'add';
+            font-family: 'Material Icons';
+            font-size: 1.5rem;
+            color: var(--skku-green);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question::after {
+            content: 'remove';
+            transform: rotate(180deg);
+        }
+
+        /* Footer */
+        footer {
+            background: #f1f1f1;
+            padding: 80px 5% 50px;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .footer-logo {
+            font-weight: 900;
+            color: var(--skku-green);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .google-colors {
+            margin-top: 25px;
+        }
+
+        .dot {
+            height: 12px;
+            width: 12px;
+            display: inline-block;
+            border-radius: 50%;
+            margin: 0 4px;
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: 80px 5%; }
+            .hero h1 { font-size: 2.2rem; }
+            .section-container { margin: 50px auto; }
+            .btn-group { flex-direction: column; align-items: stretch; padding: 0 10%; }
+            .section-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">🌿 GDGoC SKKU</div>
+    </nav>
+
+    <section class="hero">
+        <h1>Zero to Hero Engineer</h1>
+        <p>기초부터 엔터프라이즈 인프라까지, 1년간의 체계적인 기술 성장 로드맵.</p>
+        <div class="btn-group">
+            <a href="#" class="cta-button">지금 바로 지원하기 ✨</a>
+            <a href="https://becomaic-hino.github.io/GDGoCSKKU_1H26/" target="_blank" class="cta-button secondary-button">상세 로드맵 (인포그래픽)</a>
+        </div>
+    </section>
+
+    <main class="section-container">
+        <h2 class="section-title">2026 Annual Roadmap</h2>
+        <div class="roadmap-grid" id="roadmap">
+            <!-- JavaScript populates this based on the provided guide -->
+        </div>
+
+        <h2 class="section-title" style="margin-top: 100px;">자주 묻는 질문</h2>
+        <div id="faq">
+            <div class="faq-item">
+                <div class="faq-question">비전공자도 참여 가능한가요?</div>
+                <div class="faq-answer">당연하죠! Q1 'Seeds' 단계에서 기초부터 차근차근 함께 학습하니 걱정 마세요. 열정만 있다면 누구나 환영합니다. 🫡</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">주요 활동 시간과 장소는 어떻게 되나요?</div>
+                <div class="faq-answer">주로 매주 평일 저녁 성균관대학교 자연과학캠퍼스(자명관)에서 대면 세션이 진행되며, 시험 기간이나 필요에 따라 온라인 세션을 병행합니다.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">GCP ACE 자격증 지원이 있나요?</div>
+                <div class="faq-answer">네! Q3 로드맵에 포함된 자격증 대비 과정을 통해 바우처 지원 및 스터디 그룹 운영 등 다양한 혜택을 제공할 예정입니다.</div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <span class="footer-logo">GDGoC Sungkyunkwan University</span>
+        <p>© 2026 Google Developer Groups on Campus - SKKU</p>
+        <div class="google-colors">
+            <span class="dot" style="background-color: var(--google-blue)"></span>
+            <span class="dot" style="background-color: var(--google-red)"></span>
+            <span class="dot" style="background-color: var(--google-yellow)"></span>
+            <span class="dot" style="background-color: var(--google-green)"></span>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const roadmapData = [
+                { 
+                    q: "Q1", 
+                    title: "Seeds (기반 구축)", 
+                    desc: "AI 도구와 현대적 파이썬 환경을 익히며 기술의 싹을 틔웁니다.",
+                    items: [
+                        "Google AI Studio & Gemini API (코딩 없이 최신 AI 프롬프트 설계)",
+                        "uv & Pydantic (압도적 속도의 패키지 관리 및 데이터 유효성 검사)",
+                        "FastAPI (성능과 간결함을 갖춘 현대적 웹 서버 구축 입문)",
+                        "글로벌 IT 전문가 특강 (현업 실무자의 생생한 기술 트렌드 공유)"
+                    ] 
+                },
+                { 
+                    q: "Q2", 
+                    title: "Roots (심화 학습)", 
+                    desc: "앱 개발과 클라우드 인프라의 핵심을 배워 뿌리를 내립니다.",
+                    items: [
+                        "Flutter & Firebase (Android/iOS 앱 동시 개발 및 실시간 연동)",
+                        "Networking (VPC, LB: 클라우드 가상 네트워크 인프라 설계와 보안)",
+                        "Docker & Cloud Run (컨테이너화 및 서버리스 환경 자동 배포)",
+                        "Summer Code Snack (학교 편의 서비스를 직접 기획하고 배포하는 프로젝트)"
+                    ] 
+                },
+                { 
+                    q: "Q3", 
+                    title: "Stems (확장)", 
+                    desc: "디자인 시스템과 기업용 AI 플랫폼으로 실무 스펙트럼을 넓힙니다.",
+                    items: [
+                        "Figma & Material 3 (구글의 최신 가이드라인 기반 UI/UX 설계)",
+                        "Firebase Auth & Hosting (전 세계 어디서나 접속 가능한 보안 웹 배포)",
+                        "Vertex AI (엔터프라이즈급 AI 플랫폼 관리 및 전문가 역량 강화)",
+                        "Autumn Code Snack (GCP ACE 자격증 취득을 위한 집중 스터디)"
+                    ] 
+                },
+                { 
+                    q: "Q4", 
+                    title: "Harvest (성과)", 
+                    desc: "대규모 시스템 관리 기술을 완성하고 해커톤으로 결실을 맺습니다.",
+                    items: [
+                        "Kubernetes (GKE: 대규모 컨테이너를 관리하는 오케스트레이션 전문가)",
+                        "Terraform (IaC: 코드로 인프라를 자동 구축하는 인프라 자동화 마법)",
+                        "Firebase Cloud Function (서버 운영 없이 돌아가는 이벤트 자동화 로직)",
+                        "Winter Hackathon (1년간의 성장을 증명하는 최종 연합 해커톤)"
+                    ] 
+                }
+            ];
+
+            const roadmapContainer = document.getElementById('roadmap');
+            if (roadmapContainer) {
+                roadmapData.forEach(data => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <span class="q-badge">${data.q}</span>
+                        <h3>${data.title}</h3>
+                        <p class="card-desc">${data.desc}</p>
+                        <ul>
+                            ${data.items.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    `;
+                    roadmapContainer.appendChild(card);
+                });
+            }
+
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    // Toggle active class
+                    item.classList.toggle('active');
+                    
+                    // Close others (Optional: Accordion style)
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) otherItem.classList.remove('active');
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
